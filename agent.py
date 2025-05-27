@@ -1,15 +1,11 @@
-# from flask import Flask, request, jsonify
 import pandas as pd
 from google.adk.agents import Agent
 import re
 import os
 
-# app = Flask(__name__)
-
 # Load the Data
 excel_path = os.path.join(os.path.dirname(__file__), "HSN_Master_Data.xlsx")
 df = pd.read_excel(excel_path)
-# df = pd.read_excel("HSN_Master_Data.xlsx")
 df['HSNCode'] = df['HSNCode'].astype(str)
 
 # Validate the HSN code format
@@ -25,10 +21,8 @@ def get_description(hsn):
     row = df[df['HSNCode'] == hsn]
     return row.iloc[0]['Description'] if not row.empty else None
 
-# @app.route("/webhook", methods=["POST"])
 def webhook(hsn_code: str) -> dict:
     try:
-        # data = request.get_json()
         hsn_code = hsn_code
         print(hsn_code)
         if not hsn_code:
